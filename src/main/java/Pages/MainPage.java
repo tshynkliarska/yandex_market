@@ -27,54 +27,80 @@ public class MainPage extends BasePage {
     private String searchResultsTitle = "//span[@class=\"snippet-card__header-text\"]";
     private String cartXpath = "//span[contains(.,'Корзина')]";
     public String baseUrl = "https://market.yandex.ru/";
+    private String continueShopping = "/html/body/div[3]/div/div/div[1]/div[1]/div/div/div/div[2]/div[2]/a[1]";
 
-    public void openMainPage() {
+    public void openMainPage() throws IOException {
         driver.get(baseUrl);
+        captureScreenshot();
     }
 
-    public void clickOnLogin() {
+    public void clickOnLogin() throws IOException {
         click(By.xpath(loginButtonXpath));
+        captureScreenshot();
     }
 
     public void searchProduct(String productName) throws IOException {
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(profileTabXpath)));
         writeText(By.id(searchInputId), productName);
         click(By.xpath(submitSearchButtonXpath));
         captureScreenshot();
+    }
+
+    public void goToProductTab() {
         click(By.xpath(priceTabXPath));
     }
 
     public boolean verifyThatResultSetContainsProduct(String productName) {
         List<WebElement> listofItems = driver.findElements(By.xpath(searchResultsTitle));
-        for (WebElement product: listofItems)
-        {
-            if(product.getText().contains(productName)) {
+        for (WebElement product : listofItems) {
+            if (product.getText().contains(productName)) {
                 return true;
             }
         }
         return false;
     }
 
-
-    public void sortByPrice() throws InterruptedException {
+    public void sortByPrice() throws InterruptedException, IOException {
         click(By.xpath(paymentOnMarketButtonXpath));
         click(By.xpath(sortByPriceLabelXPath));
         Thread.sleep(2000);
-        //wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[@class=\"spin2 spin2_size_m i-bem spin2_js_inited spin2_progress_yes\"]")));
+        captureScreenshot();
     }
 
-    public void AddProductToCart() {
+    public void AddProductToCart() throws IOException {
         click(By.xpath(addToCartButtonInChosenProductPopUpXPath));
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[3]/div/div/div[1]/div[1]/div/div/div/div[2]/div[2]/a[1]"))).click();
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(continueShopping))).click();
+        captureScreenshot();
     }
 
-    public void logout() {
+    public void logout() throws IOException {
         click(By.xpath(profileTabXpath));
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(logoutButtonXpath))).click();
+        captureScreenshot();
     }
 
-    public void goToCart() {
+    public void goToCart() throws IOException {
         click(By.xpath(cartXpath));
+        captureScreenshot();
     }
 
+    public boolean loginButtonIsEnabled() {
+        return driver.findElement(By.xpath(loginButtonXpath)).isEnabled();
+    }
+
+    public void login(String login, String password) throws IOException {
+        clickOnLogin();
+        String parentHandle = driver.getWindowHandle();
+
+        for (String winHandle : driver.getWindowHandles()) {
+            driver.switchTo().window(winHandle);
+        }
+        LoginPage loginPage = new LoginPage(driver, wait);
+        loginPage.enterLogin(login);
+        loginPage.enterPassword(password);
+        captureScreenshot();
+        loginPage.submit();
+        driver.switchTo().window(parentHandle);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(profileTabXpath)));
+        captureScreenshot();
+    }
 }

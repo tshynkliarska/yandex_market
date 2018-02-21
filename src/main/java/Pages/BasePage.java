@@ -40,11 +40,10 @@ public class BasePage {
     //Take screenshot
     public void captureScreenshot() throws IOException {
         WebDriver augmentedDriver = new Augmenter().augment(driver);
-        File scrFile=((TakesScreenshot) augmentedDriver).getScreenshotAs(OutputType.FILE);
+        File scrFile = ((TakesScreenshot) augmentedDriver).getScreenshotAs(OutputType.FILE);
         String currentDir = System.getProperty("user.dir");
         FileUtils.copyFile(scrFile, new File(currentDir + "\\screenshots\\" + System.currentTimeMillis() + ".png"));
     }
-
 
 }
 
