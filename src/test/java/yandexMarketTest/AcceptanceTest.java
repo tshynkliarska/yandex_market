@@ -15,35 +15,40 @@ public class AcceptanceTest extends SetUp {
         //Step 1. Go to yandex.market
         MainPage mainPage = new MainPage(driver,wait);
         mainPage.openMainPage();
+
+        //Step 2. Login
         mainPage.login(login,password);
 
-        //Step 3. Perform Search
+        //Step 3-4. Perform Search, go to product tab
         mainPage.searchProduct(productNameForSearch);
         mainPage.goToProductTab();
-        mainPage.sortByPrice();
 
-        //Check if ResultSet has appropriate product
+        //Step 5. Check if ResultSet contain appropriate product
         Assert.assertTrue(mainPage.verifyThatResultSetContainsProduct(productNameForSearch));
 
-        //Step 4. Add product to cart
-        mainPage.AddProductToCart();
 
-        //Step 5. Go to Cart
+        //Step 6-7. Add product with lowest price to cart
+        mainPage.sortByPrice();
+        mainPage.addProductToCart();
+
+        //Step 8. Go to Cart
         mainPage.goToCart();
         CartPage cartPage = new CartPage(driver, wait);
         Assert.assertTrue(cartPage.productCountInCart().contains("за 1 товар"));
 
-        //Step 5. Checkout
+        //Step 9. Checkout
         cartPage.clickOnCheckoutButton();
+
+        //Step 10. Veriy correctness of product and user`s creds
         Assert.assertEquals(cartPage.getEmail(), email);
         Assert.assertEquals(cartPage.getUserName(), userName);
         Assert.assertTrue(cartPage.getProductName().contains(productNameInCart));
 
-        //Step 7. Clear cart
+        //Step 11. Clear cart
         cartPage.clearCart();
         Assert.assertTrue(cartPage.getPageSource().contains("Нет товаров для заказа."));
 
-        //Step 8. Logout
+        //Step 12. Logout
         mainPage.logout();
         Assert.assertTrue(mainPage.loginButtonIsEnabled());
     }

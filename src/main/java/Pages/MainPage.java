@@ -66,7 +66,7 @@ public class MainPage extends BasePage {
         captureScreenshot();
     }
 
-    public void AddProductToCart() throws IOException {
+    public void addProductToCart() throws IOException {
         click(By.xpath(addToCartButtonInChosenProductPopUpXPath));
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(continueShopping))).click();
         captureScreenshot();
