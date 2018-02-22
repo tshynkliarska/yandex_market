@@ -1,4 +1,4 @@
-Steps:
+###Steps:
 
 1. Перейти на market.yandex.ru
 2. Авторизоваться с использованием логина и пароля
@@ -15,18 +15,18 @@ Steps:
 
 После выполнения каждого шага тест должен сохранять скриншоты
 
-SetUp:
-1. Install java:
+###Prerequisities:
+
+To run the framework, install the following:
+1. java:
 http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
 
-2. Install maven:
+2. maven:
 http://www.mkyong.com/maven/how-to-install-maven-in-ubuntu/
 
-3. git clone https://github.com/tshynkliarska/yandex_market.git
-
-4.install chromedriver:
+3. chromedriver:
  
-
-How to run tests:
-1. cd yandex_market
-2. run mvn test
+###How to run tests:
+1. git clone https://github.com/tshynkliarska/yandex_market.git
+2. cd yandex_market
+3. run mvn test
