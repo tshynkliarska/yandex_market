@@ -24,6 +24,9 @@ http://www.mkyong.com/maven/how-to-install-maven-in-ubuntu/
 
 3. git clone https://github.com/tshynkliarska/yandex_market.git
 
+4.install chromedriver:
+ 
+
 How to run tests:
 1. cd yandex_market
 2. run mvn test
