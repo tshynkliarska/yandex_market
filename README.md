@@ -14,3 +14,16 @@ Steps:
 12. Выйти из аккаунта
 
 После выполнения каждого шага тест должен сохранять скриншоты
+
+SetUp:
+1. Install java:
+http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+
+2. Install maven:
+http://www.mkyong.com/maven/how-to-install-maven-in-ubuntu/
+
+3. git clone https://github.com/tshynkliarska/yandex_market.git
+
+How to run tests:
+1. cd yandex_market
+2. run mvn test
