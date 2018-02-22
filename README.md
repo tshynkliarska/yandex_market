@@ -24,7 +24,7 @@ http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.h
 2. maven:
 http://www.mkyong.com/maven/how-to-install-maven-in-ubuntu/
 
-3. chromedriver:
+3. chromedriver
  
 ### How to run tests:
 1. git clone https://github.com/tshynkliarska/yandex_market.git
