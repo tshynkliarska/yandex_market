@@ -6,6 +6,7 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.Augmenter;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
@@ -16,6 +17,9 @@ public class BasePage {
     public WebDriver driver;
     public WebDriverWait wait;
 
+    public String baseUrl = "https://market.yandex.ru/";
+
+
     //Constructor
     public BasePage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
@@ -24,6 +28,7 @@ public class BasePage {
 
     //Click Method
     public void click(By elementLocation) {
+        wait.until(ExpectedConditions.elementToBeClickable(elementLocation));
         driver.findElement(elementLocation).click();
     }
 

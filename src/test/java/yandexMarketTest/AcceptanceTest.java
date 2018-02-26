@@ -8,7 +8,7 @@ import org.junit.Test;
 import java.io.IOException;
 
 
-public class AcceptanceTest extends SetUp {
+public class AcceptanceTest extends BaseTest {
     @Test
     public void acceptanceTests() throws InterruptedException, IOException {
 

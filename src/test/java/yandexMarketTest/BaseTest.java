@@ -1,4 +1,4 @@
-package Pages;
+package yandexMarketTest;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -9,7 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.concurrent.TimeUnit;
 
-public class SetUp {
+public class BaseTest {
 
     public static WebDriverWait wait;
     public static WebDriver driver;
@@ -23,7 +23,7 @@ public class SetUp {
 
     @BeforeClass
     public static void setUp() throws Exception {
-        System.setProperty("webdriver.chrome.driver", AppProperties.getProps().getProperty("driver.home"));
+        System.setProperty("webdriver.chrome.driver", "/Users/tetianash/Downloads/chromedriver");
         driver = new ChromeDriver();
 
         //driver = new FirefoxDriver();
@@ -31,17 +31,11 @@ public class SetUp {
 
         wait = new WebDriverWait(driver, 10);
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
-    @After
-    public void cleanUp() {
-        driver.manage().deleteAllCookies();
-    }
 
     @AfterClass
     public static void tearDown() {
-        driver.manage().deleteAllCookies();
         driver.quit();
     }
 }

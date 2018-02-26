@@ -15,19 +15,18 @@ public class MainPage extends BasePage {
         super(driver, wait);
     }
 
-    public String loginButtonXpath = "//div[@class=\"header2-nav__user\"]//a[contains(@class,\"button2\")]";
-    public String searchInputId = "header-search";
-    private String submitSearchButtonXpath = "/html/body/div/div[1]/noindex/div/div/div[2]/div/div[1]/form/span[2]/button";
-    private String priceTabXPath = "//*[@class=\"n-product-tabs__item n-product-tabs__item_name_offers\"]";
-    private String sortByPriceLabelXPath = "/html/body/div[1]/div[5]/div[1]/div[2]/div[1]/div[1]/div[3]/a";
-    private String addToCartButtonInChosenProductPopUpXPath = "/html/body/div[1]/div[5]/div[2]/div[1]/div[1]/div[1]/div[4]/a";
-    private String paymentOnMarketButtonXpath = "/html/body/div[1]/div[5]/div[2]/div[2]/div[3]/div/div[2]/div/div[1]/div/span/label";
-    public String profileTabXpath = "//div[@class=\"n-passport-suggest-popup-opener\"]//span[contains(@class,\"user__icon user__icon_loaded_yes\")]";
-    private String logoutButtonXpath = "//a[contains(.,'Выйти')]";
-    private String searchResultsTitle = "//span[@class=\"snippet-card__header-text\"]";
-    private String cartXpath = "//span[contains(.,'Корзина')]";
-    public String baseUrl = "https://market.yandex.ru/";
-    private String continueShopping = "/html/body/div[3]/div/div/div[1]/div[1]/div/div/div/div[2]/div[2]/a[1]";
+    public By loginButtonXpath = By.xpath("//div[@class=\"header2-nav__user\"]//a[contains(@class,\"button2\")]");
+    public By searchInputId = By.id("header-search");
+    public By submitSearchButtonXpath = By.xpath("//span[@class=\"search2__button\"]//button[contains(@type,\"submit\")]");
+    public By priceTabXPath = By.xpath("//*[@class=\"n-product-tabs__item n-product-tabs__item_name_offers\"]");
+    public By sortByPriceLabelXPath = By.xpath("/html/body/div[1]/div[5]/div[1]/div[2]/div[1]/div[1]/div[3]/a");
+    public By addToCartButtonInChosenProductPopUpXPath = By.xpath("/html/body/div[1]/div[5]/div[2]/div[1]/div[1]/div[1]/div[4]/a");
+    public By paymentOnMarketButtonXpath = By.xpath("/html/body/div[1]/div[5]/div[2]/div[2]/div[3]/div/div[2]/div/div[1]/div/span/label");
+    public By profileTabXpath = By.xpath("//div[@class=\"n-passport-suggest-popup-opener\"]//span[contains(@class,\"user__icon user__icon_loaded_yes\")]");
+    public By logoutButtonXpath = By.xpath("//a[contains(.,'Выйти')]");
+    public By searchResultsTitle = By.xpath("//span[@class=\"snippet-card__header-text\"]");
+    public By cartXpath = By.xpath("//span[@class=\"header2-menu__icon header2-menu__icon_type_cart\"]");
+    public By continueShopping = By.xpath("/html/body/div[3]/div/div/div[1]/div[1]/div/div/div/div[2]/div[2]/a[1]");
 
     public void openMainPage() throws IOException {
         driver.get(baseUrl);
@@ -35,22 +34,22 @@ public class MainPage extends BasePage {
     }
 
     public void clickOnLogin() throws IOException {
-        click(By.xpath(loginButtonXpath));
+        click(loginButtonXpath);
         captureScreenshot();
     }
 
     public void searchProduct(String productName) throws IOException {
-        writeText(By.id(searchInputId), productName);
-        click(By.xpath(submitSearchButtonXpath));
+        writeText((searchInputId), productName);
+        click(submitSearchButtonXpath);
         captureScreenshot();
     }
 
     public void goToProductTab() {
-        click(By.xpath(priceTabXPath));
+        click(priceTabXPath);
     }
 
     public boolean verifyThatResultSetContainsProduct(String productName) {
-        List<WebElement> listofItems = driver.findElements(By.xpath(searchResultsTitle));
+        List<WebElement> listofItems = driver.findElements(searchResultsTitle);
         for (WebElement product : listofItems) {
             if (product.getText().contains(productName)) {
                 return true;
@@ -60,31 +59,32 @@ public class MainPage extends BasePage {
     }
 
     public void sortByPrice() throws InterruptedException, IOException {
-        click(By.xpath(paymentOnMarketButtonXpath));
-        click(By.xpath(sortByPriceLabelXPath));
+        click(paymentOnMarketButtonXpath);
+        click(sortByPriceLabelXPath);
+
         Thread.sleep(2000);
         captureScreenshot();
     }
 
     public void addProductToCart() throws IOException {
-        click(By.xpath(addToCartButtonInChosenProductPopUpXPath));
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(continueShopping))).click();
+        click(addToCartButtonInChosenProductPopUpXPath);
+        click(continueShopping);
         captureScreenshot();
     }
 
     public void logout() throws IOException {
-        click(By.xpath(profileTabXpath));
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(logoutButtonXpath))).click();
+        click(profileTabXpath);
+        click(logoutButtonXpath);
         captureScreenshot();
     }
 
     public void goToCart() throws IOException {
-        click(By.xpath(cartXpath));
+        click(cartXpath);
         captureScreenshot();
     }
 
     public boolean loginButtonIsEnabled() {
-        return driver.findElement(By.xpath(loginButtonXpath)).isEnabled();
+        return driver.findElement(loginButtonXpath).isEnabled();
     }
 
     public void login(String login, String password) throws IOException {
@@ -100,7 +100,7 @@ public class MainPage extends BasePage {
         captureScreenshot();
         loginPage.submit();
         driver.switchTo().window(parentHandle);
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(profileTabXpath)));
+        wait.until(ExpectedConditions.presenceOfElementLocated(profileTabXpath));
         captureScreenshot();
     }
 }

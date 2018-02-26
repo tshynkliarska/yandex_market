@@ -13,15 +13,15 @@ public class CartPage extends BasePage {
         super(driver, wait);
     }
 
-    private String deleteProductFromCartButtonXPath = "/html/body/div[1]/div[2]/div[1]/div[3]/div/div/div/div/div/div[2]/div/div/div/div/div/div/div[5]/div";
-    private String checkoutButtonXPath = "/html/body/div[1]/div[3]/div/div[2]/div/div/div[1]/div[1]/div/div[2]/div[2]/div/div[2]/div/div[2]/button";
-    private String emailInputXpath = "//input[@type=\"email\"]";
-    private String nameInputXpath = "//input[@name=\"user-name\"]";
-    private String productNameInputXpath = "/html/body/div[1]/div[2]/div[1]/div[3]/div/div/div/div/div/div[2]/div/div/div/div/div/div/div[2]/div/div/div/div";
-    private String totalProductCount = "//div[@class=\"w2Wj5pwydB\"]";
+    private By deleteProductFromCartButtonXPath = By.xpath("//div[@class=\"image image_name_trash\"]");
+    private By checkoutButtonXPath = By.xpath("/html/body/div[1]/div[3]/div/div[2]/div/div/div[1]/div[1]/div/div[2]/div[2]/div/div[2]/div/div[2]/button");
+    private By emailInputXpath = By.xpath("//input[@type=\"email\"]");
+    private By nameInputXpath = By.xpath("//input[@name=\"user-name\"]");
+    private By productNameInputXpath = By.xpath("//div[@class=\"n-checkout-offer__item-name\"]");
+    private By totalProductCount = By.xpath("//div[@class=\"w2Wj5pwydB\"]");
 
     public void clickOnCheckoutButton() throws InterruptedException, IOException {
-        click(By.xpath(checkoutButtonXPath));
+        click(checkoutButtonXPath);
         Thread.sleep(4000);
         captureScreenshot();
         //wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(emailInputXpath))).click();
@@ -29,25 +29,25 @@ public class CartPage extends BasePage {
     }
 
     public void clearCart() throws IOException {
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(deleteProductFromCartButtonXPath))).click();
+        click(deleteProductFromCartButtonXPath);
         captureScreenshot();
     }
 
 
     public String getEmail() {
-        return driver.findElement(By.xpath(emailInputXpath)).getAttribute("value");
+        return driver.findElement(emailInputXpath).getAttribute("value");
     }
 
     public String getUserName() {
-        return driver.findElement(By.xpath(nameInputXpath)).getAttribute("value");
+        return driver.findElement(nameInputXpath).getAttribute("value");
     }
 
     public String getProductName() {
-        return readText(By.xpath(productNameInputXpath));
+        return readText(productNameInputXpath);
     }
 
     public String productCountInCart() {
-        return readText(By.xpath(totalProductCount));
+        return readText(totalProductCount);
     }
 
     public String getPageSource() {
